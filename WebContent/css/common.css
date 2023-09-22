@@ -1,0 +1,86 @@
+/* --------------- font -----------------*/
+/* font size */
+
+.fontSize8 {
+  font-size: 8pt;
+}
+
+.fontSize10 {
+  font-size: 10pt;
+}
+
+.fontSize10 {
+  font-size: 10pt;
+}
+
+.fontSize14 {
+  font-size: 14pt;
+}
+
+.fontSize16 {
+  font-size: 16pt;
+}
+
+.fontSize18 {
+  font-size: 18pt;
+}
+
+/* font weight */
+
+.fontBold {
+  font-weight: bold;
+}
+
+.fontLighter {
+  font-weight: lighter;
+}
+
+/* 네비게이션 바 스타일 */
+ul.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333; /* 배경색 */
+  overflow: hidden;
+}
+
+li.nav-item {
+  float: right;
+}
+
+li.nav-item a {
+  display: block;
+  color: white; /* 글자색 */
+  text-align: center;
+  font-size: 10pt;
+  padding: 14px 16px; /* 각 항목의 내부 여백 */
+  text-decoration: none;
+}
+
+li.nav-item a:hover {
+  /* 호버(마우스를 갖다 대면 변화) 스타일 */
+  background-color: #555; /* 호버 배경색 */
+}
+
+/* flexbox 간단 속성 - flex / direction / justify content 순서 */
+
+.flexRowCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flexRowAround {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flexColumnCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
