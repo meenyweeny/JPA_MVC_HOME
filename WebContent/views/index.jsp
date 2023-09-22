@@ -13,13 +13,12 @@
     <script></script>
   </head>
   <body>
+    <header>
     <ul class="navbar">
       <li class="nav-item"><a href="#">Login</a></li>
       <li class="nav-item"><a href="#">Sign Up</a></li>
     </ul>
     <br /><br />
-
-    <header>
       <img src="../images/logo.png" alt="로고 이미지" width="150px" height="150px" />
       <input type="button" value="오늘의 뉴스" class="plainTextButton fontSize14" />
       <input type="button" value="공지사항" class="plainTextButton fontSize14" />

@@ -67,6 +67,10 @@
         <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=80c17aa9864e9f2fd9cf66409468fc7b"></script>
 </head>
 <body onload="mapinit()">
+	<header>
+		<c:import url="commonHeader.jsp"></c:import>
+	</header>
+	<c:import url="commonMid.jsp"></c:import>
     <div class="mapCon">
     </div>
     <!-- <i class="bi bi-calendar" style="margin-top: -100px;float: left;"></i> -->
