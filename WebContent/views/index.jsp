@@ -38,7 +38,7 @@
         type="button"
         class="selectPositionButton"
         value="아파트 실거래가 조회하러 가기 >"
-        onclick="location.href=`../apartTransaction.jsp`"
+        onclick="location.href=`../views/apartTransaction.jsp`"
       />
     </div>
 
