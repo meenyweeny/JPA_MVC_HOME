@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Page</title>
 
-    <link rel="stylesheet" href="./css/common.css" />
-    <link rel="stylesheet" href="./css/mypage.css" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/mypage.css" />
+    <link rel="stylesheet" href="../css/index.css" />
 
     <script>
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", "./json/userInfo.json", true);
+      xhttp.open("GET", "../json/userInfo.json", true);
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           let storage = JSON.parse(this.response);
@@ -40,7 +40,7 @@
     <br /><br />
 
     <header>
-      <img src="./images/logo.png" alt="로고 이미지" width="150px" height="150px" />
+      <img src="../images/logo.png" alt="로고 이미지" width="150px" height="150px" />
       <input type="button" value="관심지역 둘러보기" class="plainTextButton fontSize12" />
       <input type="button" value="관심지역 설정" class="plainTextButton fontSize12" />
       <input type="button" value="주변탐방" class="plainTextButton fontSize12" />
