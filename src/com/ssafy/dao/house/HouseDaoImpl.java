@@ -37,7 +37,7 @@ public class HouseDaoImpl implements HouseDao {
 		}
 		return list;
 	}
-
+	
 	@Override
 	public List<HouseInfoDto> searchByDongCode(int dongCode) {
 		List<HouseInfoDto> list = new ArrayList<>();
@@ -60,7 +60,7 @@ public class HouseDaoImpl implements HouseDao {
 		}
 		return list;
 	}
-
+	
 	@Override
 	public List<HouseDealDto> searchByAptNo(long aptNo, int year, int month) {
 		List<HouseDealDto> list = new ArrayList<>();

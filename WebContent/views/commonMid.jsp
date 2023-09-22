@@ -5,8 +5,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-    <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
     <br /><br />
@@ -22,7 +22,13 @@
         type="button"
         class="selectPositionButton"
         value="아파트 실거래가 조회하러 가기 >"
-        onclick="location.href=`../views/apartTransaction.jsp`"
+        onclick="location.href=`apartTransaction`"
+      />
+                <input
+        type="button"
+        class="selectPositionButton"
+        value="동별 실거래가 조회하러 가기 >"
+        onclick="location.href='dongTransaction'"
       />
     </div>
 </body>

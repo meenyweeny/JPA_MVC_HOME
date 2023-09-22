@@ -19,9 +19,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
-    <script src="js/key.js"></script>
+    <script src="script/key.js"></script>
 </head>
 <body>
+	<header>
+		<c:import url="commonHeader.jsp"></c:import>
+	</header>
+		<c:import url="commonMid.jsp"></c:import>
     <!-- 중앙 content start -->
     <div class="container">
       <div style="height: 70px"></div>
@@ -69,6 +73,7 @@
             <th>법정동</th>
             <th>거래금액</th>
           </tr>
+          
           <tbody id="aptlist"></tbody>
         </table>
         <!-- 아파트 매매 정보 검색 end -->

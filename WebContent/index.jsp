@@ -8,8 +8,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <script></script>
   </head>
   <body>
@@ -23,9 +23,7 @@
       <input type="button" value="오늘의 뉴스" class="plainTextButton fontSize14" />
       <input type="button" value="공지사항" class="plainTextButton fontSize14" />
     </header>
-
     <br /><br />
-
     <div class="centerContainer">
       <div class="headerTitle">구해줘HOME!!</div>
       <div class="headerGradientLine"></div>
@@ -37,15 +35,21 @@
         type="button"
         class="selectPositionButton"
         value="아파트 실거래가 조회하러 가기 >"
-        onclick="location.href=`../views/apartTransaction.jsp`"
+        onclick="location.href='apartTransaction'"
       />
-    </div>
+            <input
+        type="button"
+        class="selectPositionButton"
+        value="동별 실거래가 조회하러 가기 >"
+        onclick="location.href='dongTransaction'"
+      />
+    </div>	
 
     <br /><br /><br /><br />
 
     <div class="flexRowAround">
       <div class="flexRowCenter">
-        <img src="../images/2.jpg" width="150px" height="100px" />
+        <img src="images/2.jpg" width="150px" height="100px" />
         <div class="flexColumnCenter">
           <h3>지혜롭게 내 집 마련하기</h3>
           <input
