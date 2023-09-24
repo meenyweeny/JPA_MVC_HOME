@@ -22,13 +22,13 @@
         type="button"
         class="selectPositionButton"
         value="아파트 실거래가 조회하러 가기 >"
-        onclick="location.href=`apartTransaction`"
+        onclick="location.href=`apartTransaction.mvc`"
       />
                 <input
         type="button"
         class="selectPositionButton"
         value="동별 실거래가 조회하러 가기 >"
-        onclick="location.href='dongTransaction'"
+        onclick="location.href='dongTransaction.mvc'"
       />
     </div>
 </body>

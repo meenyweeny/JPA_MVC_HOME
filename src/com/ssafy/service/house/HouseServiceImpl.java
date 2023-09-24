@@ -28,8 +28,33 @@ public class HouseServiceImpl implements HouseService {
 	}
 
 	@Override
-	public List<HouseDealDto> searchByAptNo(String aptNo, int year, int month) {
-		return searchByAptNo(aptNo, year, month);
+	public List<HouseDealDto> searchByAptNo(long aptNo, int year, int month) {
+		return houseDao.searchByAptNo(aptNo, year, month);
+	}
+
+	@Override
+	public List<String> AllSido() {
+		return houseDao.AllSido();
+	}
+
+	@Override
+	public List<String> AllDYear() {
+		return houseDao.AllDYear();
+	}
+
+	@Override
+	public List<String> GetDong(String gugun) {
+		return houseDao.GetDong(gugun);
+	}
+
+	@Override
+	public List<String> GetGugun(String sido) {
+		return houseDao.GetGugun(sido);
+	}
+
+	@Override
+	public List<String[]> searchByDYM(String dong, String year, String month) {
+		return houseDao.searchByDYM(dong, year, month);
 	}
 
 }

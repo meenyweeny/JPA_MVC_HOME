@@ -1,229 +1,199 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*, java.io.*" %>
-
-<html lang="kr">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*, java.io.*"%>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
-    <script src="script/key.js"></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+<script src="script/key.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
 		<c:import url="commonHeader.jsp"></c:import>
 	</header>
-		<c:import url="commonMid.jsp"></c:import>
-    <!-- 중앙 content start -->
-    <div class="container">
-      <div style="height: 70px"></div>
-      <div class="col-md-9">
-        <div class="alert alert-success mt-3 text-center fw-bold" role="alert">아파트 정보</div>
-        <!-- 아파트 매매 정보 검색 start -->
-        <div class="row col-md-12 justify-content-center mb-2">
-          <div class="form-group col-md-2">
-            <select class="form-select bg-secondary text-light" id="sido">
-              <option value="">시도선택</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <select class="form-select bg-secondary text-light" id="gugun">
-              <option value="">구군선택</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <select class="form-select bg-secondary text-light" id="dong">
-              <option value="">동선택</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <select class="form-select bg-dark text-light" id="year"></select>
-          </div>
-          <div class="form-group col-md-2">
-            <select class="form-select bg-dark text-light" id="month">
-              <option value="">매매월선택</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <button type="button" id="list-btn" class="btn btn-outline-primary">
-              아파트매매정보
-            </button>
-          </div>
-        </div>
-        <!-- kakao map start -->
-        <div id="map" class="mt-3" style="width: 100%; height: 400px"></div>
-        <!-- kakao map end -->
-        <table class="table table-hover text-center" style="display: none">
-          <tr>
-            <th>아파트이름</th>
-            <th>층</th>
-            <th>면적</th>
-            <th>법정동</th>
-            <th>거래금액</th>
-          </tr>
-          
-          <tbody id="aptlist"></tbody>
-        </table>
-        <!-- 아파트 매매 정보 검색 end -->
-      </div>
-    </div>
-    <!-- 중앙 content end -->
-
-    <!-- 하단 footer start -->
-    <footer class="navbar navbar-expand-lg navbar-light bg-light container justify-content-end">
-      <div class="row">
-        <ul class="navbar-nav">
-          <li><a href="#" class="nav-link text-secondary">카페소개</a></li>
-          <li><a href="#" class="nav-link text-secondary">개인정보처리방침</a></li>
-          <li><a href="#" class="nav-link text-secondary">이용약관</a></li>
-          <li><a href="#" class="nav-link text-secondary">오시는길</a></li>
-          <li><label class="nav-link text-secondary">&copy; SSAFY Corp.</label></li>
-        </ul>
-      </div>
-    </footer>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
-    
-    <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=80c17aa9864e9f2fd9cf66409468fc7b&libraries=services,clusterer,drawing"
-    ></script>
-    <script>
-      ///////////////////////// select box 설정 (지역, 매매기간) /////////////////////////
-      let date = new Date();
-
-      let yearEl = document.querySelector("#year");
-      let yearOpt = `<option value="">매매년도선택</option>`;
-      let year = date.getFullYear();
-      for (let i = year; i > year - 20; i--) {
-        yearOpt += `<option value="${i}">${i}년</option>`;
-      }
-      yearEl.innerHTML = yearOpt;
-
-      // 브라우저가 열리면 시도정보 얻기.
-      sendRequest("sido", "*00000000");
-
-      document.querySelector("#year").addEventListener("change", function () {
-        let month = date.getMonth() + 1;
-        let monthEl = document.querySelector("#month");
-        let monthOpt = `<option value="">매매월선택</option>`;
-        let yearSel = document.querySelector("#year");
-        let m = yearSel[yearSel.selectedIndex].value == date.getFullYear() ? month : 13;
-        for (let i = 1; i < m; i++) {
-          monthOpt += `<option value="${i < 10 ? "0" + i : i}">${i}월</option>`;
-        }
-        monthEl.innerHTML = monthOpt;
-      });
-      
-      document.querySelector("#sido").addEventListener("change", function () {
-        if (this[this.selectedIndex].value) {
-          let regcode = this[this.selectedIndex].value.substr(0, 2) + "*00000";
-          sendRequest("gugun", regcode);
-        } else {
-          initOption("gugun");
-          initOption("dong");
-        }
-      });
-
-      // 구군이 바뀌면 동정보 얻기.
-      document.querySelector("#gugun").addEventListener("change", function () {
-        if (this[this.selectedIndex].value) {
-          let regcode = this[this.selectedIndex].value.substr(0, 5) + "*";
-          sendRequest("dong", regcode);
-        } else {
-          initOption("dong");
-        }
-      });
-
-      function sendRequest(selid, regcode) {
-        const url = "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes";
-        let params = "regcode_pattern=" + regcode + "&is_ignore_zero=true";
-        fetch(`${url}?${params}`)
-          .then((response) => response.json())
-          .then((data) => addOption(selid, data));
-      }
-
-      function addOption(selid, data) {
-        let opt = ``;
-        initOption(selid);
-        switch (selid) {
-          case "sido":
-            opt += `<option value="">시도선택</option>`;
-            data.regcodes.forEach(function (regcode) {
-              opt += `
-                <option value="${regcode.code}">${regcode.name}</option>
-                `;
-            });
-            break;
-          case "gugun":
-            opt += `<option value="">구군선택</option>`;
-            for (let i = 0; i < data.regcodes.length; i++) {
-              if (i != data.regcodes.length - 1) {
-                if (
-                  data.regcodes[i].name.split(" ")[1] == data.regcodes[i + 1].name.split(" ")[1] &&
-                  data.regcodes[i].name.split(" ").length !=
-                    data.regcodes[i + 1].name.split(" ").length
-                ) {
-                  data.regcodes.splice(i, 1);
-                  i--;
+	<c:import url="commonMid.jsp"></c:import>
+	<div class="col-md-9">
+		<div class="alert alert-success mt-3 text-center fw-bold" role="alert">아파트
+			정보</div>
+		<!-- 아파트 매매 정보 검색 start -->
+		<div class="row col-md-12 justify-content-center mb-2">
+			<div class="form-group col-md-2">
+				<select class="form-select bg-secondary text-light" id="sido">
+					<option value="">시도선택</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<select class="form-select bg-secondary text-light" id="gugun">
+					<option value="">구군선택</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<select class="form-select bg-secondary text-light" id="dong">
+					<option value="">동선택</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<select class="form-select bg-dark text-light" id="dYear">
+					<option value="">매매년도선택</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<select class="form-select bg-dark text-light" id="dMonth">
+					<option value="">매매월선택</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<button type="button" id="list-btn" class="btn btn-outline-primary">
+					아파트매매정보</button>
+			</div>
+		</div>
+		<!-- kakao map start -->
+		<div id="map" class="mt-3" style="width: 100%; height: 400px"></div>
+		<!-- kakao map end -->
+		<table class="table table-hover text-center" style="display: none"
+			id="myTable">
+			<tr>
+				<th>아파트이름</th>
+				<th>층</th>
+				<th>면적</th>
+				<th>법정동</th>
+				<th>거래금액</th>
+			</tr>
+			<tbody id="aptlist"></tbody>
+		</table>
+		<!-- 아파트 매매 정보 검색 end -->
+	</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+	<script src="scripts/js/main.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=092e31bc345f4912d3730f41ce046ad8&libraries=services,clusterer,drawing"></script>
+	<script>
+    //브라우저 로딩 완료시 셀렉트박스 채우기
+    $(document).ready(function(){
+		$.ajax({//시도
+			type: "POST",
+			url: "sido.mvc",
+			dataType: "json",
+			success: function(response){
+	            let sidoT = "<option value=''>시도선택 </option>";
+	            for (let i = 0; i < response.length; i++) {
+	                sidoT += `<option value=`+response[i]+`>`+response[i]+`</option>`;
+	            }
+	            $("#sido").html(sidoT);
+			},
+	        error: function(xhr, status, error) {
+	            // 오류 처리 로직을 여기에 작성
+	            console.error(error);
+	        }
+		});
+		
+		$.ajax({//년도
+			type: "POST",
+			url: "dYear.mvc",
+			dataType: "json",
+			success: function(response){
+	            let dYearT = "<option value=''>매매년도선택 </option>";
+	            for (let i = 0; i < response.length; i++) {
+	            	dYearT += `<option value=`+response[i]+`>`+response[i]+`</option>`;
+	            }
+	            $("#dYear").html(dYearT);
+			},
+	        error: function(xhr, status, error) {
+	            // 오류 처리 로직을 여기에 작성
+	            console.error(error);
+	        }
+		});
+		//월
+		let dMonthT= "<option value=''>매매월선택 </option>"
+		for (let i=1; i<=12; i++){
+			dMonthT+=`<option value=`+i+`>`+i+` </option>`
+		}
+        $("#dMonth").html(dMonthT);
+        
+        $("#sido").change(function() {//시도 변경시 구군 가져오기
+            $.ajax({
+                type: "POST", 
+                url: "gugun.mvc",
+                data: { "sido": $(this).val() },
+                dataType: "json", 
+                success: function(response) {
+    	            let gugunT = "<option value=''>구군선택 </option>";
+    	            for (let i = 0; i < response.length; i++) {
+    	            	gugunT += `<option value=`+response[i]+`>`+response[i]+`</option>`;
+    	            }
+    	            $("#gugun").html(gugunT);
+                },
+                error: function(xhr, status, error) {
+                    // 오류 처리 로직을 여기에 작성
+                    console.error(error);
                 }
-              }
-            }
-            let name = "";
-            data.regcodes.forEach(function (regcode) {
-              if (regcode.name.split(" ").length == 2) name = regcode.name.split(" ")[1];
-              else name = regcode.name.split(" ")[1] + " " + regcode.name.split(" ")[2];
-              opt += `
-                <option value="${regcode.code}">${name}</option>
-                `;
             });
-            break;
-          case "dong":
-            opt += `<option value="">동선택</option>`;
-            let idx = 2;
-            data.regcodes.forEach(function (regcode) {
-              if (regcode.name.split(" ").length != 3) idx = 3;
-              opt += `
-                <option value="${regcode.code}">${regcode.name.split(" ")[idx]}</option>
-                `;
+        });
+        
+        $("#gugun").change(function() {//구군 변경시 동 가져오기
+            $.ajax({
+                type: "POST", 
+                url: "dong.mvc",
+                data: { "gugun": $(this).val() },
+                dataType: "json", 
+                success: function(response) {
+    	            let dongT = "<option value=''>동선택 </option>";
+    	            for (let i = 0; i < response.length; i++) {
+    	            	dongT += `<option value=`+response[i]+`>`+response[i]+`</option>`;
+    	            }
+    	            $("#dong").html(dongT);
+                },
+                error: function(xhr, status, error) {
+                    // 오류 처리 로직을 여기에 작성
+                    console.error(error);
+                }
             });
-        }
-        document.querySelector(`#${selid}`).innerHTML = opt;
-      }
+        });
+	});
 
-      function initOption(selid) {
-        let options = document.querySelector(`#${selid}`);
-        options.length = 0;
-      }
 
       ///////////////////////// 아파트 매매 정보 /////////////////////////
       document.querySelector("#list-btn").addEventListener("click", function () {
-        let url = 
+    	  document.querySelector("#myTable").setAttribute("style", "display: block;");
+          $.ajax({
+              type: "POST", // 또는 "POST", 요청 메서드 선택
+              url: "searchDeal.mvc", // 데이터를 처리하는 JSP 또는 서블릿 URL
+              data: { "dong": $("#dong").val(), "dYear": $("#dYear").val(), "dMonth": $("#dMonth").val()},
+              dataType: "json", // 응답 데이터 유형 (JSON, XML, 등)
+              success: function(response) {
+            	  makeList(response)
+              },
+              error: function(xhr, status, error) {
+                console.error(error);
+              }
+            });
+        
+    <%--    let queryParams = encodeURIComponent("serviceKey") + "=" + serviceKey; /*Service Key*/
+        let url =
           "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev";
         let gugunSel = document.querySelector("#gugun");
         let regCode = gugunSel[gugunSel.selectedIndex].value.substr(0, 5);
-        let yearSel = document.querySelector("#year");
+        let yearSel = document.querySelector("#dYear");
         let year = yearSel[yearSel.selectedIndex].value;
-        let monthSel = document.querySelector("#month");
+        let monthSel = document.querySelector("#dMonth");
         let month = monthSel[monthSel.selectedIndex].value;
         let dealYM = year + month;
-        let queryParams = encodeURIComponent("serviceKey") + "=" + serviceKey; /*Service Key*/
         queryParams +=
           "&" +
           encodeURIComponent("LAWD_CD") +
@@ -235,19 +205,47 @@
           "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1"); /*페이지번호*/
         queryParams +=
           "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("30"); /*페이지당건수*/
+
         fetch(`${url}?${queryParams}`)
-          .then((response) => {
-            console.log(response)
-            return response.text();
-          })
+          .then((response) => response.text())
           .then((data) => makeList(data));
+          --%>
       });
-      
+
+      function makeList(data) {
+    	    document.querySelector("table").setAttribute("style", "display: ;");
+    	    let tbody = document.querySelector("#aptlist");
+    	    initTable();
+    	    
+    	    // JSON 데이터 파싱
+    	    //let jsonData = JSON.parse(data);
+
+    	    data.forEach((apt) => {
+    	        let tr = document.createElement("tr");
+
+    	        apt.forEach((cellData) => {
+    	            let td = document.createElement("td");
+    	            td.appendChild(document.createTextNode(cellData));
+    	            tr.appendChild(td);
+    	        });
+
+    	        tbody.appendChild(tr);
+    	    });
+    	}
+      function initTable() {
+          let tbody = document.querySelector("#aptlist");
+          let len = tbody.rows.length;
+          for (let i = len - 1; i >= 0; i--) {
+            tbody.deleteRow(i);
+          }
+        }
+      <%--
       function makeList(data) {
         document.querySelector("table").setAttribute("style", "display: ;");
         let tbody = document.querySelector("#aptlist");
         let parser = new DOMParser();
         const xml = parser.parseFromString(data, "application/xml");
+        // console.log(xml);
         initTable();
         let apts = xml.querySelectorAll("item");
         apts.forEach((apt) => {
@@ -332,14 +330,8 @@
           }
         });
       }
-
-      function initTable() {
-        let tbody = document.querySelector("#aptlist");
-        let len = tbody.rows.length;
-        for (let i = len - 1; i >= 0; i--) {
-          tbody.deleteRow(i);
-        }
-      }
+      --%>
     </script>
-  </body>
+</body>
 </html>
+

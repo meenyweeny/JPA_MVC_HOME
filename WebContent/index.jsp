@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*, java.io.*" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContxext.request.contextPath}" />
 
 <html lang="kr">
   <head>
@@ -20,7 +20,7 @@
       <li class="nav-item"><a href="#">Sign Up</a></li>
     </ul>
     <br /><br />
-      <img src="${root}${root}/images/logo.png" alt="로고 이미지" width="150px" height="150px" />
+      <img src="images/logo.png" alt="로고 이미지" width="150px" height="150px" />
       <input type="button" value="오늘의 뉴스" class="plainTextButton fontSize14" />
       <input type="button" value="공지사항" class="plainTextButton fontSize14" />
     </header>
@@ -36,13 +36,13 @@
         type="button"
         class="selectPositionButton"
         value="아파트 실거래가 조회하러 가기 >"
-        onclick="location.href='apartTransaction'"
+        onclick="location.href='apartTransaction.mvc'"
       />
             <input
         type="button"
         class="selectPositionButton"
         value="동별 실거래가 조회하러 가기 >"
-        onclick="location.href='dongTransaction'"
+        onclick="location.href='dongTransaction.mvc'"
       />
     </div>	
 
